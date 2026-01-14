@@ -4,56 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Planet Inventory</title>
-    <script type="module">
-        var rangeInput = document.getElementById("placementFromSun");
-        var output = document.getElementById("placementFromSunOutput");
-        output.innerHTML = rangeInput.value;
-
-        rangeInput.addEventListener('input', function(){
-            output.innerHTML = this.value;
-        })
-    </script>
   </head>
   <body>
-    <h1> Input Planetarium Inventory:</h1>
+    <h1>Input Planetarium Inventory:</h1>
     <form action="/planets" method="POST">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" />
-    </div>
-    <div>
-       <label for="color">Name:</label>
-      <input type="text" name="color" id="color" />
-    </div>
-<div>
-      <label for="hasAMoon">Has a moon</label>
-      <input type="checkbox" name="hasAMoon" id="hasAMoon" />
-</div>
-<div>
-          <label for="hasMultiMoons">Has Multiple moon</label>
-      <input type="checkbox" name="hasMultiMoons" id="hasMultiMoons" />
-</div>
-<div>
-          <label for="isItDwarf">Dwarf Planet</label>
-      <input type="checkbox" name="isItDwarf" id="isItDwarf" />
-</div>
-<div>
-          <label for="age">Planets Age:</label>
-      <input type="number" name="age" id="age" />
-</div>
-<div>
-    <div>
-    <label for="placementFromSun">Placement from the Sun</label>
-    
-    </div>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <div>
+        <label for="color">Color:</label>
+        <input type="text" name="color" id="color" />
+      </div>
+      <div>
+        <label for="hasAMoon">Has a moon</label>
+        <input type="checkbox" name="hasAMoon" id="hasAMoon" />
+      </div>
+      <div>
+        <label for="hasMultiMoons">Has Multiple moons</label>
+        <input type="checkbox" name="hasMultiMoons" id="hasMultiMoons" />
+      </div>
+      <div>
+        <label for="isItDwarf">Dwarf Planet</label>
+        <input type="checkbox" name="isItDwarf" id="isItDwarf" />
+      </div>
+      <div>
+        <label for="age">Planet's Age:</label>
+        <input type="number" name="age" id="age" />
+      </div>
+      <div>
+        <div>
+          <label for="placementFromSun">Placement from the Sun</label>
+        </div>
 
-      <div><span>1</span><input type="range" name="placementFromSun" id="placementFromSun" min="1" max="13" value="6"/><span>13</span></div>
-      
-      <div><output for="placementFromSun" id="placementFromSunOutput">6</output></div>
+        <div class="range-wrapper">
+          <input
+            type="range"
+            name="placementFromSun"
+            id="placementFromSun"
+            min="1"
+            max="13"
+            value="6"
+          />
+          <output id="placementFromSunOutput"></output>
+        </div>
 
-</div>
+        <div>
+          <output for="placementFromSun" id="placementFromSunOutput"></output>
+        </div>
+      </div>
 
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const range = document.getElementById("placementFromSun");
+          const output = document.getElementById("placementFromSunOutput");
 
-  
+          function update() {
+            const min = Number(range.min);
+            const max = Number(range.max);
+            const val = Number(range.value);
+
+            const percent = (val - min) / (max - min);
+            const thumbOffset = 16; // approximate thumb radius
+            const width = range.offsetWidth - thumbOffset * 2;
+
+            output.textContent = val;
+            output.style.left = `${thumbOffset + percent * width}px`;
+          }
+
+          range.addEventListener("input", update);
+          update();
+        });
+      </script>
+
+      <button type="submit">Create Planet</button>
+    </form>
   </body>
 </html>

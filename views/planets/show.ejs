@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Fruit</title>
+  </head>
+  <body>
+    <%- include("../partials/nav.ejs") %>
+    <h1><%= planet.name %></h1>
+    <% if (planet.hasAMoon){ %>
+    <p>This planet has a moon.</p>
+    <% }if (planet.hasMultiMoons){ %>
+    <p>This planet has muiltiple moons.</p>
+    <% }else{ %>
+    <p>This planet has no moons.</p>
+    <% } %>
+    <!-- new delete button -->
+    <form action="/planets/<%=planet._id%>?_method=DELETE" method="POST">
+      <button type="submit">Delete Planet <%= planet.name %></button>
+    </form>
+    <a href="/Planets/<%= planet._id %>/edit">
+      <button>Edit</button>
+    </a>
+    <!-- show.ejs -->
+
+    <body>
+      <div class="fruit-details">
+        <!-- show page content -->
+      </div>
+      <a class="planets-index-link" href="/planets">
+        <div class="index-link-text">Back to Planetarium Home</div>
+      </a>
+    </body>
+  </body>
+</html>

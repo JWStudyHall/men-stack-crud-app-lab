@@ -1,9 +1,12 @@
+const dotenv =require("dotenv")
+dotenv.config()
 const express = require("express");
 const logger = require("morgan");
 const path = require("path");
 const methodOverride = require("method-override");
 const db = require("./db/connection.js");
 const Planets = require("./models/planets.js");
+// const mongoose =require("mongoose") completed with connection.js
 
 const app = express();
 
